@@ -56,32 +56,17 @@ class establecimiento(Base):
     __tablename__ = 'establecimiento'
     id = Column(Integer, primary_key=True)
     amie = Column(String(100))
-    educacion_id = Column(Integer, ForeignKey('educacion.id'))
-
-    education = relationship("Educacion", back_populates = "establecimiento")
-
-class educacion(Base):
-    __tablename__ = 'educacion'
-    id = Column(Integer, primary_key=True)
+    sostenimiento = Column(String(100))
     tipoEducacion = Column(String(100))
     modalidad = Column(String(100))
     jornada = Column(String(100))
-    numEstudiante = Column(Integer)
+    acceso = Column(String(100))
+    numEstudiantes = Column(Integer)
     numDocentes = Column(Integer)
 
-    establecimiento = relationship("Establecimiento", back_populates = "educacion")
+    parroquia_id = Column(Integer, ForeignKey('parroquia.id'))
 
-class distritos(Base):
-    __tablename__ = 'distritos'
-    id = Column(Integer, primary_key=True)
-    distritos = Column(String(100))
-
-
-class 
-
-        
-
-
+    parroquia = relationship("Parroquia", back_populates = "establecimiento")        
 
 Base.metadata.create_all(engine)
 
