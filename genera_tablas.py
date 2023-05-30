@@ -15,16 +15,15 @@ class Provincia(Base):
     __tablename__ = 'provincia'
     id = Column(Integer, primary_key=True)
     codigoProvincia = Column(Integer, nullable=False)
-    nombrePronvicia = Column(String(100))
+    nombreProvincia = Column(String(100))  # Corrección en el nombre del atributo
 
-    canton = relationship("Canton", back_populates="provincia")
+    cantones = relationship("Canton", back_populates="provincias")
 
-    
     def __repr__(self):
-        return "Club: nombre=%s deporte=%s fundación=%d" % (
-                          self.nombre, 
-                          self.deporte, 
-                          self.fundacion)
+        return "Club: nombre=%d deporte=%d fundación=%s" % (
+                          self.id, 
+                          self.codigoProvincia, 
+                          self.nombreProvincia)
 
 class Canton(Base):
     __tablename__ = 'canton'
@@ -34,15 +33,15 @@ class Canton(Base):
 
     provincia_id = Column(Integer, ForeignKey('provincia.id'))
 
-    provincia  = relationship("Provincia", back_populates="canton")
+    provincias  = relationship("Provincia", back_populates="cantones")
 
-    parroquia = relationship("Parroquia", back_populates="canton")
+    parroquias = relationship("Parroquia", back_populates="cantones")
     
     def __repr__(self):
-        return "Jugador: %s - dorsal:%d - posición: %s" % (
-                self.nombre, self.dorsal, self.posicion)
+        return "Jugador: %d - dorsal:%d - posición: %s" % (
+                self.id, self.codigoCanton, self.nombreCanton)
     
-class Parroquias(Base):
+class Parroquia(Base):  # Corrección en el nombre de la clase
     __tablename__ = 'parroquia'
     id = Column(Integer, primary_key=True)
     codigoParroquia = Column(Integer)
@@ -50,12 +49,16 @@ class Parroquias(Base):
 
     canton_id = Column(Integer, ForeignKey('canton.id'))
 
-    canton = relationship("Canton", back_populates = "parroquia")
+    cantones = relationship("Canton", back_populates="parroquias")
 
-class establecimiento(Base):
-    __tablename__ = 'establecimiento'
+    instituciones = relationship("Institucion", back_populates="parroquias")  # Corrección en el nombre de la relación
+
+class Institucion(Base):
+    __tablename__ = 'institucion'
     id = Column(Integer, primary_key=True)
     amie = Column(String(100))
+    nombre_institucion = Column(String(100))
+    codigo_Distrito = Column(String(100))
     sostenimiento = Column(String(100))
     tipoEducacion = Column(String(100))
     modalidad = Column(String(100))
@@ -66,7 +69,7 @@ class establecimiento(Base):
 
     parroquia_id = Column(Integer, ForeignKey('parroquia.id'))
 
-    parroquia = relationship("Parroquia", back_populates = "establecimiento")        
+    parroquias = relationship("Parroquia", back_populates="instituciones")  # Corrección en el nombre de la relación      
 
 Base.metadata.create_all(engine)
 
