@@ -20,7 +20,7 @@ class Provincia(Base):
     cantones = relationship("Canton", back_populates="provincias")
 
     def __repr__(self):
-        return "Club: nombre=%d deporte=%d fundación=%s" % (
+        return "Provincia: id=%d codigoPronvicia=%d nomnreProvincia=%s" % (
                           self.id, 
                           self.codigoProvincia, 
                           self.nombreProvincia)
@@ -38,8 +38,8 @@ class Canton(Base):
     parroquias = relationship("Parroquia", back_populates="cantones")
     
     def __repr__(self):
-        return "Jugador: %d - dorsal:%d - posición: %s" % (
-                self.id, self.codigoCanton, self.nombreCanton)
+        return "id: %d - codigoCanton: %d - nombreCanton: %s - pronvicia_id: %d" % (
+                self.id, self.codigoCanton, self.nombreCanton, self.provincia_id)
     
 class Parroquia(Base):  # Corrección en el nombre de la clase
     __tablename__ = 'parroquia'
@@ -52,6 +52,11 @@ class Parroquia(Base):  # Corrección en el nombre de la clase
     cantones = relationship("Canton", back_populates="parroquias")
 
     instituciones = relationship("Institucion", back_populates="parroquias")  # Corrección en el nombre de la relación
+    
+    def __repr__(self):
+        return "id: %d - codigoParroquia: %d - nombreParroquia: %s - canton_id: %d" % (
+                self.id, self.codigoParroquia, self.nombreParroquia, self.canton_id)
+
 
 class Institucion(Base):
     __tablename__ = 'institucion'
