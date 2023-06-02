@@ -15,7 +15,7 @@ consulta = session.query(Parroquia).join(Institucion).filter(Institucion.jornada
 
 
 for parroquia in consulta:
-    print(parroquia.nombreParroquia)
+    print("Nombre Parroquia: %s || Ide del canton: %d || Codigo Pronvincia: %d "% (parroquia.nombreParroquia, parroquia.canton_id, parroquia.cantones.provincias.codigoProvincia))
 
 print("----------------------------")
 print("Consulta2\n")
@@ -29,4 +29,4 @@ consulta2 = session.query(Canton).join(Parroquia).join(Institucion).filter(
 ).distinct()
 
 for canton in consulta2:
-    print(canton.nombreCanton)
+    print("Nombre canton : "+ canton.nombreCanton)

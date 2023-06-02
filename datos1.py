@@ -22,7 +22,7 @@ print("Consulta2\n")
 
 consulta2 = session.query(Institucion).join(Parroquia).join(Canton).join(Provincia).filter(
     Institucion.parroquia_id == Parroquia.id,
-    Parroquia.canton_id == Canton.id,
+    Parroquia.canton_icodigoPad == Canton.id,
     Canton.provincia_id == Provincia.id,
     Provincia.nombreProvincia == "EL ORO").all()
 
